@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1>Event List</h1>
+{% for event in events %}  
+<div>
+  <p>
+      {{ event.name }}: {{ event.date }} 
+      Event Location: {{ event.location }} <br>
+      Description: {{ event.description }}
+      {% if event.recurring %}
+      <span>&#128257;</span>
+      {% endif %}
+      <form action="/events/delete/{{ events.index(event) }}" method="post">
+        <input type="submit" value="Delete Event">
+      </form>
+  </p>
+</div>
+{% endfor %}
+<form action="/events" method="post">
+  <label for="date">Date</label>
+  <input type="date" name="date" id="date">
+  <label for="name">Name</label>
+  <input type="text" name="name" id="name">
+  <label for="guests">Guests</label>
+  <input type="number" name="guests" id="guests">
+  <br> <br>
+  <label for="location">Location</label>
+  <input type="text" name="location" id="location">
+  <label for="description">Description</label>
+  <textarea name="description" id="description" rows="2" cols="30"></textarea>
+  <br> <br>
+  <label for="recurring">Recurring?</label>
+  <select name="recurring" id="recurring">
+    <option value="True">Yes</option>
+    <option value="">No</option>
+  <input type="submit" value="Add Event">
+  
+</form>
+{% endblock %}
